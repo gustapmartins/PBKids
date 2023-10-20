@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BudgeTracker</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <style>
+    body {
+      background-color: #333;
+      color: white;
+    }
+
+    .nav-wrapper {
+      padding: 0 5rem;
+    }
+
+    .card.full-width {
+      margin: 0 auto;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="date"] {
+      color: white !important;
+    }
+
+    .custom-card {
+      background-color: #015457;
+      width: 200%;
+    }
+
+    .card-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 130%;
+    }
+
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 1;
+    }
+
+    .modalEdit {
+      display: none;
+      position: relative;
+      width: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff;
+      z-index: 2;
+      padding: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <div class="nav-wrapper #bf360c deep-orange darken-4">
+      <a href="#" class="brand-logo">PBKids</a>
+      <ul id="nav-mobile" class="right">
+        <li><a href="index.html">Criar</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h1 class="center-align">Lista de brinquedos</h1>
+    <div class="row center-align">
+      <div class="col s12 m6">
+        <div class="card full-width custom-card #bf360c deep-orange darken-4">
+          <div class="card-content">
+            <span class="card-title">Janeiro/2023</span>
+            <p class="price"></p>
+          </div>
+          <table class="striped">
+            <thead>
+              <tr>
+                <th>Descrição</th>
+                <th>Valor</th>
+                <th>Data</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody class="list">
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="modal-backdrop">
+      <div id="editForm" class="#212121 grey darken-4 modalEdit">
+        <h2 class="center-align" id="h2Text">Editar Brinquedo</h2>
+        <form id="editToyForm">
+
+          <div class="input-field col s12">
+            <p class="editId"></p>
+          </div>
+          <div class="input-field col s12">
+            <input class="nome editNome" type="text" id="editNome" name="editNome">
+          </div>
+          <div class="input-field col s12">
+            <input class="valor editValor" type="number" id="editValor" name="editValor">
+          </div>
+          <div class="input-field col s12">
+            <input class="data editData" type="date" id="editData" name="editData">
+          </div>
+          <div class="center-align">
+            <button class="btn waves-effect #558b2f light-green darken-3" type="submit" name="action">Salvar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script src="js/crud.js"></script>
+</body>
+</html>
