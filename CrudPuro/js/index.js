@@ -1,20 +1,23 @@
-const setLocalStorage = (tarefas) => localStorage.setItem("chave" , JSON.stringify(tarefas))
+const nomeCreate = document.querySelector(".nome");
+const dataCreate = document.querySelector(".data");
+const valorCreate = document.querySelector(".valor");
 
-document.querySelector(".btn").addEventListener("click", (e) => createCard(e))
+let getLocalStorage = JSON.parse(localStorage.getItem("chave")) || []
+const setLocalStorage = (tarefas) => localStorage.setItem("chave" , JSON.stringify(tarefas))
 
 function createCard(e) {
     e.preventDefault();
 
-    let tarefas = JSON.parse(localStorage.getItem("chave")) || []
-
     const list = {
         id: Date.now(),
-        nome: document.querySelector(".nome").value,
-        data: document.querySelector(".data").value,
-        valor: document.querySelector(".valor").value,
+        nome: nomeCreate.value,
+        data: dataCreate.value,
+        valor: valorCreate.value,
     }
 
-    tarefas.push(list)
+    getLocalStorage.push(list)
 
-    setLocalStorage(tarefas)
+    setLocalStorage(getLocalStorage)
 }
+
+document.querySelector(".btn").addEventListener("click", (e) => createCard(e))

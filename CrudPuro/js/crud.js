@@ -1,4 +1,11 @@
-list = [];
+const listContainer = document.querySelector(".list");
+const editId = document.querySelector(".editId");
+const editNome = document.querySelector(".editNome");
+const editValor = document.querySelector(".editValor")
+const editData = document.querySelector(".editData");
+const price = document.querySelector(".price");
+const modalBackDrop = document.querySelector(".modal-backdrop");
+const modalEdit = document.querySelector(".modalEdit");
 
 let getLocalStorage = JSON.parse(localStorage.getItem("chave")) || []
 const setLocalStorage = (getLocalStorage) => localStorage.setItem("chave", JSON.stringify(getLocalStorage))
@@ -9,7 +16,6 @@ window.addEventListener("load", () => {
 })
 
 function updateList() {
-    const listContainer = document.querySelector(".list");
     listContainer.innerHTML = "";
 
     getLocalStorage.forEach((tarefa) => renderCard(tarefa, listContainer))
@@ -37,26 +43,19 @@ function renderCard(element, listContainer) {
 function totalValor() {
     let soma = 0; // Zere o valor antes de recalcular
 
-    let getLocalStorage = JSON.parse(localStorage.getItem("chave")) || [];
-
     getLocalStorage.forEach(element => {
         soma += parseInt(element.valor);
     });
 
-    document.querySelector(".price").innerHTML = `Total: R$ ${soma.toFixed(2)}`;
+    price.innerHTML = `Total: R$ ${soma.toFixed(2)}`;
 }
 
-
-
 function DeleteCard(id) {
+    getLocalStorage = getLocalStorage.filter(item => item.id !== id);
 
-    list = getLocalStorage.filter(item => item.id !== id);
-
-
-    setLocalStorage(list);
+    setLocalStorage(getLocalStorage);
     totalValor();
     updateList();
-    
 }
 
 function EditCard(id) {
@@ -64,37 +63,37 @@ function EditCard(id) {
     let tarefa = getLocalStorage.find((item) => item.id == id)
 
     if (tarefa) {
-        document.querySelector(".editId").innerHTML = tarefa.id;
-        document.querySelector(".editNome").value = tarefa.nome;
-        document.querySelector(".editValor").value = tarefa.valor;
-        document.querySelector(".editData").value = tarefa.data;
+        editId.innerHTML = tarefa.id;
+        editNome.value = tarefa.nome;
+        editValor.value = tarefa.valor;
+        editData.value = tarefa.data;
 
-        document.querySelector(".modal-backdrop").style.display = "block";
-        document.querySelector(".modalEdit").style.display = "block";
+        modalBackDrop.style.display = "block";
+        modalEdit.style.display = "block";
     }
 }
 
 document.querySelector("#editToyForm").addEventListener("submit", (e) => {
     e.preventDefault();
 
-    const editId = document.querySelector(".editId").innerHTML;
-    const editNome = document.querySelector(".editNome").value
-    const editValor = parseFloat(document.querySelector(".editValor").value);
-    const editData = document.querySelector(".editData").value
+    const Id = editId.innerHTML;
+    const Nome = editNome.value
+    const Valor = parseFloat(editValor.value);
+    const Data = editData.value 
 
     // Atualize o item na lista
     getLocalStorage.forEach((item) => {
-        if (item.id == editId) {
-            item.nome = editNome;
-            item.valor = editValor;
-            item.data = editData;
+        if (item.id == Id) {
+            item.nome = Nome;
+            item.valor = Valor;
+            item.data = Data;
         }
     });
 
     setLocalStorage(getLocalStorage);
 
-    document.querySelector(".modal-backdrop").style.display = "none";
-    document.querySelector(".modalEdit").style.display = "none";
+    modalBackDrop.style.display = "none";
+    modalEdit.style.display = "none";
 
     totalValor();
     updateList();
